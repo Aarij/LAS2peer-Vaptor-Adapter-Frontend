@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<!--
+Copyright (c) 2014 Dominik Renzel, Advanced Community Information Systems (ACIS) Group, 
+Chair of Computer Science 5 (Databases & Information Systems), RWTH Aachen University, Germany
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+
+* Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+* Neither the name of the ACIS Group nor the names of its
+  contributors may be used to endorse or promote products derived from
+  this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content="A simple example of a client using the OpenID Connect Button." />
+		<title>OpenID Connect Test Client</title>
+
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+		
+		<link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		
+		<!-- import jQuery for AJAX calls (must) -->
+		<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+		<!-- import Bootstrap for responsive UI (must) -->
+		<script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+		
+		<!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="js/jquery.easing.min.js"></script>
+		
+		
+		<!--<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3&amp;sensor=false"></script>-->
+		<script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+		
+		<script src="js/LifemirrorPlayer.js"></script>
+		<script src="js/map2.js"></script>
+		
+		
+		
+		<title>Grayscale - Start Bootstrap Theme</title>
+
+		<!-- Bootstrap Core CSS -->
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+
+		<!-- Custom CSS -->
+		<link href="css/grayscale.css" rel="stylesheet">
+
+		<!-- Custom Fonts -->
+		<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+		<link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+		<link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+	
+	
+	</head>
+	<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+		<!-- Navigation -->
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+			
+			<ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#userprofile">User Profile</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+	
+		
+		<!-- Intro Header -->
+    <header class="intro">
+        <div class="intro-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+					
+                        <h1 class="brand-heading">Vaptor</h1>
+                        <p class="intro-text">A free, responsive, one page Bootstrap theme.<br>Created by Start Bootstrap.</p>
+						<!--<span class="glyphicon glyphicon-search"> Search</span>-->
+						<div class="input-group col-md-12" id="searchdiv">
+							<input id="searchString" type="text" class="form-control input-lg" placeholder="Construction" />
+							<span class="input-group-btn">
+								<a class="page-scroll" href="#about">
+								<button id="searchbtn" class="btn btn-info btn-lg" type="button">
+									<i class="glyphicon glyphicon-search"></i>
+								</button>
+								</a>
+							</span>
+						</div>
+						<p>
+							<!-- OpenID Connect Button - Step 3: add HTML element representing button -->
+							<span id="signinButton">
+								<span class="oidc-signin"
+									data-callback="signinCallback"
+									data-name="Learning Layers"
+									data-logo="https://raw.githubusercontent.com/learning-layers/LayersToolTemplate/master/extras/logo.png"
+									data-size="lg"
+									data-server="https://api.learning-layers.eu/o/oauth2"
+									data-clientid="5757818c-04de-441d-859b-eb39f5df6706"
+									data-scope="openid phone email address profile">
+								</span>
+							</span>
+							
+						</p>
+						<h2 id="status"/>
+						
+						
+                        <!--<a href="#about" class="btn btn-circle page-scroll">
+                            <i class="fa fa-angle-double-down animated"></i>
+                        </a>-->
+                    </div>
+                </div>
+				
+				
+            </div>
+			
+			
+			
+        </div>
+		
+
+		
+    </header>
+		
+		<!-- About Section -->
+    <section id="about" class="container content-section text-center">
+        <div class="row">
+			<div>
+		
+				<div id="videonamedisplay" style ="width:49%">
+				
+				</div>
+				<!--<div id="nextbtn" style ="border:1px black solid; width:49%; float:left" onclick="lifemirror.videoCallback(this.playlist[index])"> Next Video </div>-->
+			</div>
+
+
+			<div>
+				<div id="videodisplay" style ="width:49%; float:left">
+			
+				</div>
+				<div id="annotationdisplay" style ="border:1px black solid; width:49%; line-height:400px; vertical-align:middle; float:left">
+
+				</div>
+                <!--<h2>About Grayscale</h2>
+                <p>Grayscale is a free Bootstrap 3 theme created by Start Bootstrap. It can be yours right now, simply download the template on <a href="http://startbootstrap.com/template-overviews/grayscale/">the preview page</a>. The theme is open source, and you can use it for any purpose, personal or commercial.</p>
+                <p>This theme features stock photos by <a href="http://gratisography.com/">Gratisography</a> along with a custom Google Maps skin courtesy of <a href="http://snazzymaps.com/">Snazzy Maps</a>.</p>
+                <p>Grayscale includes full HTML, CSS, and custom JavaScript files along with LESS files for easy customization.</p>-->
+            </div>
+			
+			<div style="clear:both;"></div>
+			<!--<div id="map_div" style="height: 200px; width: 200px"></div>-->
+			<div id="map-canvas"></div>
+			
+        </div>
+    </section>
+				
+	<!-- User Profile Section -->
+    <section id="userprofile" style="display:none" class="container content-section text-center">
+        <div class="row" style="align:center">
+            <div style="width:50%; margin-right:auto; margin-left:auto">
+				
+				<div class="form-horizontal">
+				
+				<div class="form-group">
+							  <label for="location" class="col-sm-2 control-label">Location</label>
+							  <div class="col-sm-10">
+								 <input type="text" name="location" class="form-control" id="location" 
+									placeholder="Enter your location">
+							  </div>
+						   </div>
+						   <div class="form-group">
+							  <label for="language" class="col-sm-2 control-label">Preferred Language</label>
+							  <div class="col-sm-10">
+								 <input type="text" name="language" class="form-control" id="language"
+									placeholder="Enter your preferred language">
+							  </div>
+						   </div>
+						   <div class="form-group">
+							  <label for="duration" class="col-sm-2 control-label">Preferred Duration</label>
+							  <div class="col-sm-10">
+								 <input type="text" name="duration" class="form-control" id="duration"
+									placeholder="Enter Preferred Duration in minutes">
+							  </div>
+						   </div>
+						   
+						   <div class="form-group">
+							  <div >
+								 <button id= "savebtn" type="submit" class="btn btn-default">Save</button>
+							  </div>
+						   </div>
+				
+            </div>
+        </div>
+    </section>
+	
+	
+	
+		
+		<!-- OpenID Connect Button - Step 2: resolve dependencies to jQuery, bootstrap, jsjws and jsrsasign -->
+		
+		
+		
+		
+		
+		<!-- import JWS and JSRSASIGN (must) -->
+		<script type="text/javascript" src="./js/jsjws/jws-2.0.js"></script>
+		<script type="text/javascript" src="./js/jsrsasign/ext/base64.js"></script>
+		<script type="text/javascript" src="./js/jsrsasign/base64x-1.1.js"></script>
+		<script type="text/javascript" src="./js/jsrsasign/ext/jsbn.js"></script>
+		<script type="text/javascript" src="./js/jsrsasign/ext/jsbn2.js"></script>
+		<script type="text/javascript" src="./js/jsrsasign/asn1hex-1.1.js"></script>
+		<script type="text/javascript" src="./js/jsrsasign/crypto-1.1.js"></script>
+		<script type="text/javascript" src="./js/jsrsasign/ext/rsa.js"></script>
+		<script type="text/javascript" src="./js/jsrsasign/ext/rsa2.js"></script>
+		<script type="text/javascript" src="./js/jsrsasign/rsapem-1.1.js"></script>
+		<script type="text/javascript" src="./js/jsrsasign/rsasign-1.2.min.js"></script>
+		<script type="text/javascript" src="./js/jsrsasign/x509-1.1.js"></script>
+		<script type="text/javascript" src="./js/jsrsasign/crypto-1.1.js"></script>
+		
+		<script type="text/javascript">
+
+			// OpenID Connect Button - Step 4: implement a callback function
+			function signinCallback(result) {
+				if(result === "success"){
+					document.getElementById("userprofile").style.display = "inline";
+					document.getElementById("searchdiv").style.display = "inline";
+					//initialize();
+					//getVideos(document.getElementById("searchString").value);
+					$("#searchbtn").click(function(event){
+						document.getElementById("videonamedisplay").innerHTML = "";
+						document.getElementById("videodisplay").innerHTML = "";
+						document.getElementById("annotationdisplay").innerHTML = "";
+						flushLists();
+						getVideos(document.getElementById("searchString").value);
+						playVideos();
+					});
+					$("#savebtn").click(function(event){
+						updateUserProfile(oidc_userinfo["preferred_username"]);
+					});
+					
+					
+					//playVideos();
+					// at this point, developers have access to several pieces of information
+					// relevant to OpenID Connect (see ./oidc-button.js)
+					console.log("OpenID Connect Provider Configuration:");
+					console.log(oidc_provider_config);
+					console.log("OpenID Connect User Info:");
+					console.log(oidc_userinfo);
+					console.log("OpenID Connect ID Token:");
+					console.log(oidc_idtoken);
+					
+					$("#status").html("Hello, " + oidc_userinfo.name + "!");
+				} else {
+					console.log("not signed in...");
+					console.log(result);
+					$("#status").html("Do I know you?!");
+				}
+			}
+		</script>
+		
+		<!--  
+		<!-- OpenID Connect Button - Step 2: add this script element right before closing </body> tag -->
+		<script type="text/javascript">
+		  (function() {
+		   var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+		   po.src = './oidc-button.js';
+		   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+		 })();
+		
+		
+		
+	</script>
+	</body>
+</html>
